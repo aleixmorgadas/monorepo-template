@@ -1,0 +1,56 @@
+services:
+  - type: web
+    name: frontend
+    branch: main
+    env: node
+    region: frankfurt
+    plan: free
+    rootDir: frontend
+    buildCommand: yarn; yarn build
+    startCommand: yarn start
+    buildFilter:
+      paths:
+        - ./**/*.ts
+        - ./**/*.tsx
+      ignoredPaths:
+        - ./**/*.test.ts
+  - type: web
+    name: backend
+    branch: main
+    env: docker
+    region: frankfurt
+    plan: free
+    rootDir: backend
+    healthCheckPath: /actuator/health
+    buildFilter:
+      paths:
+        - ./**/*.java
+    envVars:
+      - key: DB_USERNAME
+        fromDatabase:
+          name: postgresql-prod
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: postgresql-prod
+          property: password
+      - key: DB_HOST
+        fromDatabase:
+          name: postgresql-prod
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: postgresql-prod
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: postgresql-prod
+          property: database
+
+databases:
+  - name: postgresql-prod
+    region: frankfurt
+    plan: free
+    databaseName: db
+    user: db
+    postgresMajorVersion: 15

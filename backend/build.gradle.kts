@@ -35,6 +35,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
+    testCompileOnly("org.projectlombok:lombok")
+    testAnnotationProcessor("org.projectlombok:lombok")
 }
 
 dependencyManagement {
@@ -46,3 +48,16 @@ dependencyManagement {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.bootJar {
+    archiveFileName.set("backend.jar")
+}
+
+task<JavaExec>("runTestApp") {
+    environment["spring.output.ansi.console-available"] = true
+    environment["spring.output.ansi.enabled"] = "ALWAYS"
+
+    classpath = sourceSets.test.get().runtimeClasspath
+    mainClass.set("dev.aleixmorgadas.example.run.TestApplication")
+}
+

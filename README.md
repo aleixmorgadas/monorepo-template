@@ -1,5 +1,8 @@
 # monorepo template
 
+Checkout the [documentation](./docs/INDEX.md) to setup the environment
+and understand the decisions made.
+
 ## Local environment setup
 
 ### Dependencies

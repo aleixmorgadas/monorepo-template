@@ -45,5 +45,6 @@ jobs:
           retention-days: 15
       - name: Render deploy
         uses: distributhor/workflow-webhook@v3
+        if: ${{secrets.FRONTEND_DEPLOY_HOOK}} != ""
         env:
           webhook_url: ${{ secrets.FRONTEND_DEPLOY_HOOK }}

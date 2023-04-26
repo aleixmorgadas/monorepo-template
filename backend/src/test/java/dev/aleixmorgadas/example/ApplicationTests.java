@@ -3,11 +3,9 @@ package dev.aleixmorgadas.example;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class ApplicationTests {
+class ApplicationTests implements IntegrationTest {
 
     @Test
     void contextLoads() {
     }
-
 }

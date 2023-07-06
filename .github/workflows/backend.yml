@@ -23,6 +23,6 @@ jobs:
         run: ./gradlew build
       - name: Render deploy
         uses: distributhor/workflow-webhook@v3
-        if: ${{secrets.BACKEND_DEPLOY_HOOK}} != ""
+        if: ${{ secrets.BACKEND_DEPLOY_HOOK }} != ""
         env:
-          webhook_url: ${{ secrets.BACKEND_DEPLOY_HOOK }}
+          webhook_url: ${{ secrets.BACKEND_DEPLOY_HOOK }}&ref=${{ env.GITHUB_SHA }}
